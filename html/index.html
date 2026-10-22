@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <h1 class="hero__title">Hero title</h1>
+        <p class="hero__text">hero text</p>
+        <a href="#product-grid" class="btn btn--primary">Shop now!!</a>
+    </section>
+
+
+    <main class="shop-layout">
+
+        <aside class="filters">
+            <h2 class="filters__title">Filters</h2>
+
+            <fieldset class="filters__group">
+                <legend>Category</legend>
+                <label class="filters__option">
+                    <input type="checkbox" name="category" value="electronics">
+                    <span>Electronics</span>
+                </label>
+                <label class="filters__option">
+                    <input type="checkbox" name="category" value="fashion">
+                    <span>Fashion</span>
+                </label>
+                <label class="filters__option">
+                    <input type="checkbox" name="category" value="home">
+                    <span>Home</span>
+                </label>
+                <label class="filters__option">
+                    <input type="checkbox" name="category" value="beauty">
+                    <span>Beauty</span>
+                </label>
+                <label class="filters__option">
+                    <input type="checkbox" name="category" value="sports">
+                    <span>Sports</span>
+                </label>
+                <label class="filters__option">
+                    <input type="checkbox" name="category" value="books">
+                    <span>Books</span>
+                </label>
+            </fieldset>
+
+            <fieldset class="filters__group">
+                <legend>Price</legend>
+                <input type="number" class="filters__input" id="price-min" placeholder="Min" aria-label="Minimum price">
+                <input type="number" class="filters__input" id="price-max" placeholder="Max" aria-label="Maximum price">
+            </fieldset>
+
+            <div class="filters__actions">
+                <button type="button" class="btn btn--primary" id="apply-filters">Apply</button>
+                <button type="button" class="btn btn--outline" id="reset-filters">Reset</button>
+            </div>
+        </aside>
+
+        <section class="products">
+
+            <div class="products__toolbar">
+                <p class="products__count" id="product-count">Showing 0 Products</p>
+                <select class="products__sort" id="sort-select" aria-label="Sort products">
+                    <option value="newest">Newest</option>
+                    <option value="price-asc">Price low to high</option>
+                    <option value="price-desc">Price high to low</option>
+                    <option value="rating">Top rated</option>
+                </select>
+            </div>
+
+            <div class="products__grid" id="product-grid">
+                <article class="product-card">
+                    <a href="#" class="product-card__image-link">
+                        <img src="../images/placeholder.svg" alt="Wireless Headphones" class="product-card__image">
+                    </a>
+                    <button type="button" class="product-card__wishlist" aria-label="Add to wishlist">&#9825;</button>
+                    <div class="product-card__body">
+                        <span class="product-card__category">Electronics</span>
+                        <h3 class="product-card__title"><a href="#">Wireless Headphones</a></h3>
+                        <div class="product-card__rating">
+                            <span class="product-card__stars">★★★★☆</span>
+                            <span class="product-card__reviews">(24)</span>
+                        </div>
+                        <p class="product-card__price">$129.00</p>
+                        <button type="button" class="btn btn--primary product-card__add">Add to cart</button>
+                    </div>
+                </article>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p class="site-footer__text">Text with copyright claim will end in end</p>
+    </footer>
+
+
+    <script src="../js/products-data.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/home.js" defer></script>
+
+</body>
+</html>

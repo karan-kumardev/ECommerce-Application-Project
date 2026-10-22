@@ -1,0 +1,21 @@
+ecommerce/
+├── index.html
+├── product.html
+├── cart.html
+├── login.html
+├── checkout.html
+├── receipt.html
+├── account.html
+├── wishlist.html
+├── admin/
+│   ├── dashboard.html
+│   └── products.html
+├── css/
+│   ├── base.css
+│   ├── layout.css
+│   └── components.css
+├── js/
+│   ├── products-data.js
+│   ├── main.js
+│   └── home.js
+└── images/
