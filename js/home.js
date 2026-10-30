@@ -1,0 +1,112 @@
+// home.js - renders the product grid and handles search, filters and sorting.
+// products-data.js loads first, so the `products` array already exists here.
+
+const grid = document.getElementById("product-grid");
+const count =document.getElementById("product-count");
+const searchForm = document.querySelector(".search-form");
+const searchInput = document.getElementById("search-input");
+const sortSelect =document.getElementById("sort-select");
+const priceMin = document.getElementById("price-min");
+const priceMax = document.getElementById("price-max");
+const applyBtn = document.getElementById("apply-filters");
+const resetBtn = document.getElementById("reset-filters");
+
+
+function makeStars(rating) {
+    const n = Math.round(rating);
+    return "★".repeat(n) + "☆".repeat(5 - n);
+}
+
+// draws the given list of products into the grid
+function renderProducts(list) {
+    if (list.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1 / -1;">No products found</p>';
+        count.textContent = "Showing 0 Products";
+        return;
+    }
+
+    let html = "";
+
+    list.forEach(product => {
+        html += `
+        <article class="product-card">
+            <a href="product.html?id=${product.id}" class="product-card__image-link">
+                <img src="${product.image}" alt="${product.name}" class="product-card__image">
+            </a>
+            <button type="button" class="product-card__wishlist" data-id="${product.id}" aria-label="Add to wishlist">&#9825;</button>
+            <div class="product-card__body">
+                <span class="product-card__category">${product.category}</span>
+                <h3 class="product-card__title"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                <div class="product-card__rating">
+                    <span class="product-card__stars">${makeStars(product.rating)}</span>
+                    <span class="product-card__reviews">(${product.reviewCount})</span>
+                </div>
+                <p class="product-card__price">$${product.price}</p>
+                <button type="button" class="btn btn--primary product-card__add" data-id="${product.id}">Add to cart</button>
+            </div>
+        </article>`;
+    });
+
+    grid.innerHTML = html;
+    count.textContent = "Showing " + list.length + " Products";
+}
+
+// reads search box + filters + sort, then redraws the grid
+function applyAll() {
+    const text = searchInput.value.trim().toLowerCase();
+
+    const selected = Array.from(
+        document.querySelectorAll('input[name="category"]:checked')
+    ).map(box => box.value);
+
+    // an empty box means "no limit", so keep it as null
+    const min = priceMin.value === "" ? null : Number(priceMin.value);
+    const max = priceMax.value === "" ? null : Number(priceMax.value);
+
+    // filter() returns a new array, so the original `products` is never changed
+    const result = products.filter(product => {
+        if (text && !product.name.toLowerCase().includes(text)) return false;
+        if (selected.length > 0 && !selected.includes(product.category)) return false;
+        if (min !== null && product.price < min) return false;
+        if (max !== null && product.price > max) return false;
+        return true;
+    });
+
+    const sortBy = sortSelect.value;
+
+    if (sortBy === "newest") {
+        result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortBy === "price-asc") {
+        result.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "price-desc") {
+        result.sort((a, b) => b.price - a.price);
+    } else if (sortBy === "rating") {
+        result.sort((a, b) => b.rating - a.rating);
+    }
+
+    renderProducts(result);
+}
+
+function resetAll() {
+    document.querySelectorAll('input[name="category"]').forEach(box => {
+        box.checked = false;
+    });
+    priceMin.value = "";
+    priceMax.value = "";
+    searchInput.value = "";
+    sortSelect.value = "newest";
+    applyAll();
+}
+
+// ----- events -----
+applyBtn.addEventListener("click", applyAll);
+resetBtn.addEventListener("click", resetAll);
+sortSelect.addEventListener("change", applyAll);
+
+searchForm.addEventListener("submit", event => {
+    event.preventDefault();   // stop the page from reloading
+    applyAll();
+});
+
+// first draw
+applyAll();
