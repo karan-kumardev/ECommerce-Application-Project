@@ -23,23 +23,7 @@ function renderProducts(list) {
     let html = "";
 
     list.forEach(product => {
-        html += `
-        <article class="product-card">
-            <a href="product.html?id=${product.id}" class="product-card__image-link">
-                <img src="${product.image}" alt="${product.name}" class="product-card__image">
-            </a>
-            <button type="button" class="product-card__wishlist" data-id="${product.id}" aria-label="Add to wishlist">&#9825;</button>
-            <div class="product-card__body">
-                <span class="product-card__category">${product.category}</span>
-                <h3 class="product-card__title"><a href="product.html?id=${product.id}">${product.name}</a></h3>
-                <div class="product-card__rating">
-                    <span class="product-card__stars">${makeStars(product.rating)}</span>
-                    <span class="product-card__reviews">(${product.reviewCount})</span>
-                </div>
-                <p class="product-card__price">$${product.price}</p>
-                <button type="button" class="btn btn--primary product-card__add" data-id="${product.id}">Add to cart</button>
-            </div>
-        </article>`;
+        html += makeCardHTML(product);
     });
 
     grid.innerHTML = html;
@@ -103,7 +87,15 @@ searchForm.addEventListener("submit", event => {
     applyAll();
 });
 
+
 grid.addEventListener("click", event => {
+    const heart = event.target.closest(".product-card__wishlist");
+    if (heart) {
+        const saved = toggleWishlist(Number(heart.dataset.id));
+        setHeart(heart, saved);
+        return;
+    }
+
     const button = event.target.closest(".product-card__add");
     if (!button) return;
     addToCart(Number(button.dataset.id));

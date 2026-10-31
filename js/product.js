@@ -75,7 +75,7 @@ function renderDetail() {
                     <button type="button" class="qty-picker__btn" id="qty-plus" aria-label="Increase quantity">+</button>
                 </div>
                 <button type="button" class="btn btn--primary" id="add-to-cart-btn" ${outOfStock ? "disabled" : ""}>Add to cart</button>
-                <button type="button" class="product-info__wishlist" id="wishlist-btn" data-id="${product.id}" aria-label="Add to wishlist">&#9825;</button>
+                                <button type="button" class="product-info__wishlist${isInWishlist(product.id) ? " product-info__wishlist--active" : ""}" id="wishlist-btn" data-id="${product.id}" aria-label="Add to wishlist">${isInWishlist(product.id) ? "&#9829;" : "&#9825;"}</button>
             </div>
         </div>`;
 }
@@ -153,5 +153,11 @@ detail.addEventListener("click", event => {
         return;
     }
 
-    // wishlist button: wired up later, when we build the wishlist
+    //wishlist btn
+   const wishBtn = event.target.closest("#wishlist-btn");
+    if (wishBtn) {
+        const saved = toggleWishlist(product.id);
+        wishBtn.classList.toggle("product-info__wishlist--active", saved);
+        wishBtn.innerHTML = saved ? "&#9829;" : "&#9825;";
+    }
 });

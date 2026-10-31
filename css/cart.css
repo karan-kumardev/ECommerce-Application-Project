@@ -1,6 +1,4 @@
-/* cart.css - cart page only. Link it in cart.html AFTER components.css */
 
-/* the `hidden` attribute must win over the display rules below */
 [hidden] {
     display: none !important;
 }
