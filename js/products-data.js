@@ -11,7 +11,12 @@ const products = [
     "rating": 2.8,
     "reviewCount": 3,
     "stock": 25,
-    "image": "../images/products/p01.webp",
+    "image": "../images/products/p01-1.webp",
+    "images": [
+      "../images/products/p01-1.webp",
+      "../images/products/p01-2.webp",
+      "../images/products/p01-3.webp"
+    ],
     "createdAt": "2025-06-05T08:26:32.404Z",
     "reviews": [
       {
@@ -43,7 +48,12 @@ const products = [
     "rating": 3.7,
     "reviewCount": 3,
     "stock": 24,
-    "image": "../images/products/p02.webp",
+    "image": "../images/products/p02-1.webp",
+    "images": [
+      "../images/products/p02-1.webp",
+      "../images/products/p02-2.webp",
+      "../images/products/p02-3.webp"
+    ],
     "createdAt": "2024-11-17T23:57:06.898Z",
     "reviews": [
       {
@@ -75,7 +85,13 @@ const products = [
     "rating": 3.2,
     "reviewCount": 3,
     "stock": 47,
-    "image": "../images/products/p03.webp",
+    "image": "../images/products/p03-1.webp",
+    "images": [
+      "../images/products/p03-1.webp",
+      "../images/products/p03-2.webp",
+      "../images/products/p03-3.webp",
+      "../images/products/p03-4.webp"
+    ],
     "createdAt": "2025-04-08T05:30:46.521Z",
     "reviews": [
       {
@@ -107,7 +123,11 @@ const products = [
     "rating": 5,
     "reviewCount": 3,
     "stock": 61,
-    "image": "../images/products/p04.webp",
+    "image": "../images/products/p04-1.webp",
+    "images": [
+      "../images/products/p04-1.webp",
+      "../images/products/p04-2.webp"
+    ],
     "createdAt": "2025-07-15T21:49:36.407Z",
     "reviews": [
       {
@@ -139,7 +159,12 @@ const products = [
     "rating": 3.4,
     "reviewCount": 3,
     "stock": 60,
-    "image": "../images/products/p05.webp",
+    "image": "../images/products/p05-1.webp",
+    "images": [
+      "../images/products/p05-1.webp",
+      "../images/products/p05-2.webp",
+      "../images/products/p05-3.webp"
+    ],
     "createdAt": "2025-10-20T01:31:06.524Z",
     "reviews": [
       {
@@ -171,7 +196,12 @@ const products = [
     "rating": 4,
     "reviewCount": 3,
     "stock": 45,
-    "image": "../images/products/p06.webp",
+    "image": "../images/products/p06-1.webp",
+    "images": [
+      "../images/products/p06-1.webp",
+      "../images/products/p06-2.webp",
+      "../images/products/p06-3.webp"
+    ],
     "createdAt": "2025-03-14T21:15:14.318Z",
     "reviews": [
       {
@@ -203,7 +233,13 @@ const products = [
     "rating": 4.7,
     "reviewCount": 3,
     "stock": 62,
-    "image": "../images/products/p07.webp",
+    "image": "../images/products/p07-1.webp",
+    "images": [
+      "../images/products/p07-1.webp",
+      "../images/products/p07-2.webp",
+      "../images/products/p07-3.webp",
+      "../images/products/p07-4.webp"
+    ],
     "createdAt": "2024-11-25T14:12:22.817Z",
     "reviews": [
       {
@@ -235,7 +271,13 @@ const products = [
     "rating": 3.6,
     "reviewCount": 3,
     "stock": 38,
-    "image": "../images/products/p08.webp",
+    "image": "../images/products/p08-1.webp",
+    "images": [
+      "../images/products/p08-1.webp",
+      "../images/products/p08-2.webp",
+      "../images/products/p08-3.webp",
+      "../images/products/p08-4.webp"
+    ],
     "createdAt": "2025-10-22T19:25:21.258Z",
     "reviews": [
       {
@@ -267,7 +309,13 @@ const products = [
     "rating": 3.6,
     "reviewCount": 3,
     "stock": 25,
-    "image": "../images/products/p09.webp",
+    "image": "../images/products/p09-1.webp",
+    "images": [
+      "../images/products/p09-1.webp",
+      "../images/products/p09-2.webp",
+      "../images/products/p09-3.webp",
+      "../images/products/p09-4.webp"
+    ],
     "createdAt": "2025-01-09T15:20:20.077Z",
     "reviews": [
       {
@@ -299,7 +347,13 @@ const products = [
     "rating": 4.8,
     "reviewCount": 3,
     "stock": 7,
-    "image": "../images/products/p10.webp",
+    "image": "../images/products/p10-1.webp",
+    "images": [
+      "../images/products/p10-1.webp",
+      "../images/products/p10-2.webp",
+      "../images/products/p10-3.webp",
+      "../images/products/p10-4.webp"
+    ],
     "createdAt": "2026-02-24T07:04:24.820Z",
     "reviews": [
       {
@@ -331,7 +385,13 @@ const products = [
     "rating": 4.2,
     "reviewCount": 3,
     "stock": 52,
-    "image": "../images/products/p11.webp",
+    "image": "../images/products/p11-1.webp",
+    "images": [
+      "../images/products/p11-1.webp",
+      "../images/products/p11-2.webp",
+      "../images/products/p11-3.webp",
+      "../images/products/p11-4.webp"
+    ],
     "createdAt": "2024-09-17T10:20:54.331Z",
     "reviews": [
       {
@@ -363,7 +423,13 @@ const products = [
     "rating": 2.5,
     "reviewCount": 3,
     "stock": 3,
-    "image": "../images/products/p12.webp",
+    "image": "../images/products/p12-1.webp",
+    "images": [
+      "../images/products/p12-1.webp",
+      "../images/products/p12-2.webp",
+      "../images/products/p12-3.webp",
+      "../images/products/p12-4.webp"
+    ],
     "createdAt": "2026-05-27T04:45:40.172Z",
     "reviews": [
       {
@@ -395,7 +461,13 @@ const products = [
     "rating": 3.2,
     "reviewCount": 3,
     "stock": 90,
-    "image": "../images/products/p13.webp",
+    "image": "../images/products/p13-1.webp",
+    "images": [
+      "../images/products/p13-1.webp",
+      "../images/products/p13-2.webp",
+      "../images/products/p13-3.webp",
+      "../images/products/p13-4.webp"
+    ],
     "createdAt": "2025-02-03T01:53:33.526Z",
     "reviews": [
       {
@@ -427,7 +499,13 @@ const products = [
     "rating": 3.1,
     "reviewCount": 3,
     "stock": 30,
-    "image": "../images/products/p14.webp",
+    "image": "../images/products/p14-1.webp",
+    "images": [
+      "../images/products/p14-1.webp",
+      "../images/products/p14-2.webp",
+      "../images/products/p14-3.webp",
+      "../images/products/p14-4.webp"
+    ],
     "createdAt": "2025-08-30T09:42:59.083Z",
     "reviews": [
       {
@@ -459,7 +537,12 @@ const products = [
     "rating": 4.8,
     "reviewCount": 3,
     "stock": 88,
-    "image": "../images/products/p15.webp",
+    "image": "../images/products/p15-1.webp",
+    "images": [
+      "../images/products/p15-1.webp",
+      "../images/products/p15-2.webp",
+      "../images/products/p15-3.webp"
+    ],
     "createdAt": "2026-05-31T06:08:47.181Z",
     "reviews": [
       {
@@ -491,7 +574,12 @@ const products = [
     "rating": 3.2,
     "reviewCount": 3,
     "stock": 47,
-    "image": "../images/products/p16.webp",
+    "image": "../images/products/p16-1.webp",
+    "images": [
+      "../images/products/p16-1.webp",
+      "../images/products/p16-2.webp",
+      "../images/products/p16-3.webp"
+    ],
     "createdAt": "2026-07-18T21:37:59.195Z",
     "reviews": [
       {
@@ -523,7 +611,10 @@ const products = [
     "rating": 3.3,
     "reviewCount": 3,
     "stock": 37,
-    "image": "../images/products/p17.webp",
+    "image": "../images/products/p17-1.webp",
+    "images": [
+      "../images/products/p17-1.webp"
+    ],
     "createdAt": "2024-11-07T19:26:12.737Z",
     "reviews": [
       {
@@ -555,7 +646,12 @@ const products = [
     "rating": 3.9,
     "reviewCount": 3,
     "stock": 60,
-    "image": "../images/products/p18.webp",
+    "image": "../images/products/p18-1.webp",
+    "images": [
+      "../images/products/p18-1.webp",
+      "../images/products/p18-2.webp",
+      "../images/products/p18-3.webp"
+    ],
     "createdAt": "2024-10-15T17:11:42.387Z",
     "reviews": [
       {
@@ -587,7 +683,10 @@ const products = [
     "rating": 4.5,
     "reviewCount": 3,
     "stock": 77,
-    "image": "../images/products/p19.webp",
+    "image": "../images/products/p19-1.webp",
+    "images": [
+      "../images/products/p19-1.webp"
+    ],
     "createdAt": "2026-06-20T03:35:15.738Z",
     "reviews": [
       {
@@ -619,7 +718,11 @@ const products = [
     "rating": 4.5,
     "reviewCount": 3,
     "stock": 75,
-    "image": "../images/products/p20.webp",
+    "image": "../images/products/p20-1.webp",
+    "images": [
+      "../images/products/p20-1.webp",
+      "../images/products/p20-2.webp"
+    ],
     "createdAt": "2025-06-02T20:54:31.793Z",
     "reviews": [
       {
@@ -651,7 +754,10 @@ const products = [
     "rating": 2.6,
     "reviewCount": 3,
     "stock": 99,
-    "image": "../images/products/p21.webp",
+    "image": "../images/products/p21-1.webp",
+    "images": [
+      "../images/products/p21-1.webp"
+    ],
     "createdAt": "2025-10-09T14:47:01.588Z",
     "reviews": [
       {
@@ -683,7 +789,12 @@ const products = [
     "rating": 3.2,
     "reviewCount": 3,
     "stock": 94,
-    "image": "../images/products/p22.webp",
+    "image": "../images/products/p22-1.webp",
+    "images": [
+      "../images/products/p22-1.webp",
+      "../images/products/p22-2.webp",
+      "../images/products/p22-3.webp"
+    ],
     "createdAt": "2024-11-08T06:56:56.188Z",
     "reviews": [
       {
@@ -715,7 +826,12 @@ const products = [
     "rating": 4.4,
     "reviewCount": 3,
     "stock": 29,
-    "image": "../images/products/p23.webp",
+    "image": "../images/products/p23-1.webp",
+    "images": [
+      "../images/products/p23-1.webp",
+      "../images/products/p23-2.webp",
+      "../images/products/p23-3.webp"
+    ],
     "createdAt": "2025-02-27T22:08:36.617Z",
     "reviews": [
       {
@@ -747,7 +863,10 @@ const products = [
     "rating": 2.9,
     "reviewCount": 3,
     "stock": 34,
-    "image": "../images/products/p24.webp",
+    "image": "../images/products/p24-1.webp",
+    "images": [
+      "../images/products/p24-1.webp"
+    ],
     "createdAt": "2024-12-03T11:29:45.706Z",
     "reviews": [
       {
@@ -779,7 +898,12 @@ const products = [
     "rating": 4.5,
     "reviewCount": 3,
     "stock": 34,
-    "image": "../images/products/p25.webp",
+    "image": "../images/products/p25-1.webp",
+    "images": [
+      "../images/products/p25-1.webp",
+      "../images/products/p25-2.webp",
+      "../images/products/p25-3.webp"
+    ],
     "createdAt": "2025-08-13T23:30:51.037Z",
     "reviews": [
       {
@@ -811,7 +935,12 @@ const products = [
     "rating": 4.3,
     "reviewCount": 3,
     "stock": 58,
-    "image": "../images/products/p26.webp",
+    "image": "../images/products/p26-1.webp",
+    "images": [
+      "../images/products/p26-1.webp",
+      "../images/products/p26-2.webp",
+      "../images/products/p26-3.webp"
+    ],
     "createdAt": "2025-04-13T12:15:53.051Z",
     "reviews": [
       {
@@ -843,7 +972,10 @@ const products = [
     "rating": 4.9,
     "reviewCount": 3,
     "stock": 53,
-    "image": "../images/products/p27.webp",
+    "image": "../images/products/p27-1.webp",
+    "images": [
+      "../images/products/p27-1.webp"
+    ],
     "createdAt": "2026-02-11T02:34:53.226Z",
     "reviews": [
       {
@@ -875,7 +1007,10 @@ const products = [
     "rating": 2.6,
     "reviewCount": 3,
     "stock": 100,
-    "image": "../images/products/p28.webp",
+    "image": "../images/products/p28-1.webp",
+    "images": [
+      "../images/products/p28-1.webp"
+    ],
     "createdAt": "2025-01-22T16:34:14.873Z",
     "reviews": [
       {
@@ -907,7 +1042,12 @@ const products = [
     "rating": 4,
     "reviewCount": 3,
     "stock": 22,
-    "image": "../images/products/p29.webp",
+    "image": "../images/products/p29-1.webp",
+    "images": [
+      "../images/products/p29-1.webp",
+      "../images/products/p29-2.webp",
+      "../images/products/p29-3.webp"
+    ],
     "createdAt": "2025-11-08T03:00:37.685Z",
     "reviews": [
       {
@@ -939,7 +1079,10 @@ const products = [
     "rating": 4.7,
     "reviewCount": 3,
     "stock": 75,
-    "image": "../images/products/p30.webp",
+    "image": "../images/products/p30-1.webp",
+    "images": [
+      "../images/products/p30-1.webp"
+    ],
     "createdAt": "2025-10-07T04:35:50.465Z",
     "reviews": [
       {
@@ -971,7 +1114,10 @@ const products = [
     "rating": 4.6,
     "reviewCount": 3,
     "stock": 43,
-    "image": "../images/products/p31.webp",
+    "image": "../images/products/p31-1.webp",
+    "images": [
+      "../images/products/p31-1.webp"
+    ],
     "createdAt": "2025-11-14T08:31:01.196Z",
     "reviews": [
       {
@@ -1003,7 +1149,12 @@ const products = [
     "rating": 4.4,
     "reviewCount": 3,
     "stock": 60,
-    "image": "../images/products/p32.webp",
+    "image": "../images/products/p32-1.webp",
+    "images": [
+      "../images/products/p32-1.webp",
+      "../images/products/p32-2.webp",
+      "../images/products/p32-3.webp"
+    ],
     "createdAt": "2025-09-07T18:03:27.535Z",
     "reviews": [
       {
@@ -1035,7 +1186,12 @@ const products = [
     "rating": 2.9,
     "reviewCount": 3,
     "stock": 76,
-    "image": "../images/products/p33.webp",
+    "image": "../images/products/p33-1.webp",
+    "images": [
+      "../images/products/p33-1.webp",
+      "../images/products/p33-2.webp",
+      "../images/products/p33-3.webp"
+    ],
     "createdAt": "2026-06-27T22:15:50.768Z",
     "reviews": [
       {
@@ -1067,7 +1223,12 @@ const products = [
     "rating": 2.9,
     "reviewCount": 3,
     "stock": 90,
-    "image": "../images/products/p34.webp",
+    "image": "../images/products/p34-1.webp",
+    "images": [
+      "../images/products/p34-1.webp",
+      "../images/products/p34-2.webp",
+      "../images/products/p34-3.webp"
+    ],
     "createdAt": "2024-12-17T00:40:48.534Z",
     "reviews": [
       {
@@ -1099,7 +1260,12 @@ const products = [
     "rating": 4.2,
     "reviewCount": 3,
     "stock": 32,
-    "image": "../images/products/p35.webp",
+    "image": "../images/products/p35-1.webp",
+    "images": [
+      "../images/products/p35-1.webp",
+      "../images/products/p35-2.webp",
+      "../images/products/p35-3.webp"
+    ],
     "createdAt": "2025-03-17T02:17:20.281Z",
     "reviews": [
       {
@@ -1131,7 +1297,12 @@ const products = [
     "rating": 4,
     "reviewCount": 3,
     "stock": 54,
-    "image": "../images/products/p36.webp",
+    "image": "../images/products/p36-1.webp",
+    "images": [
+      "../images/products/p36-1.webp",
+      "../images/products/p36-2.webp",
+      "../images/products/p36-3.webp"
+    ],
     "createdAt": "2025-09-02T07:34:13.688Z",
     "reviews": [
       {
@@ -1163,7 +1334,12 @@ const products = [
     "rating": 3.9,
     "reviewCount": 3,
     "stock": 1,
-    "image": "../images/products/p37.webp",
+    "image": "../images/products/p37-1.webp",
+    "images": [
+      "../images/products/p37-1.webp",
+      "../images/products/p37-2.webp",
+      "../images/products/p37-3.webp"
+    ],
     "createdAt": "2026-04-23T10:20:09.947Z",
     "reviews": [
       {
@@ -1195,7 +1371,12 @@ const products = [
     "rating": 4.9,
     "reviewCount": 3,
     "stock": 99,
-    "image": "../images/products/p38.webp",
+    "image": "../images/products/p38-1.webp",
+    "images": [
+      "../images/products/p38-1.webp",
+      "../images/products/p38-2.webp",
+      "../images/products/p38-3.webp"
+    ],
     "createdAt": "2026-05-10T11:36:16.743Z",
     "reviews": [
       {

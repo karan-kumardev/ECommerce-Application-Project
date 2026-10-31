@@ -82,9 +82,12 @@ async function main() {
 
         for (const p of interleave(lists, count)) {
             const num = String(id).padStart(2, "0");
-            const imageUrl = (p.images && p.images[0]) || p.thumbnail;
-            const image = await downloadImage(imageUrl, "p" + num);
-            console.log(`  p${num}  ${p.title}`);
+                       const urls = p.images && p.images.length ? p.images : [p.thumbnail];
+            const images = [];
+            for (let k = 0; k < urls.length; k++) {
+                images.push(await downloadImage(urls[k], "p" + num + "-" + (k + 1)));
+            }
+            console.log(`  p${num}  ${p.title}  (${images.length} images)`);
 
             products.push({
                 id: id,
@@ -95,7 +98,8 @@ async function main() {
                 rating: Math.round(p.rating * 10) / 10,
                 reviewCount: (p.reviews || []).length,
                 stock: p.stock,
-                image: image,
+                image: images[0],   // main image, for home page
+                images: images,      // all images, for product page
                 createdAt: (p.meta && p.meta.createdAt) || null,
                 // reviewer emails are dropped on purpose
                 reviews: (p.reviews || []).map((r) => ({
