@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/product.css">
+
+</head>
+<body>
+        <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+        <main class="product-page">
+            <nav class="breadcrumb">
+                <a href="index.html">
+                    Home
+                </a>
+                <span>/</span>
+                <span id="breadcrumb-name">
+                    
+                </span>
+
+            </nav>
+            
+                <section class="product-detail" id="product-detail">
+                    <!-- filled with js -->
+                </section>
+                <section class="reviews" id="reviews">
+                    <!-- filled with js -->
+                </section>
+
+                <div class="product-missing" id="product-missing" hidden>
+                        <p>Product Not Found</p>
+                        <a href="index.html" class="btn btn--primary">Home</a>
+                </div>
+        </main>
+
+
+      <footer class="site-footer">
+        <p class="site-footer__text">Text with copyright claim will end in end</p>
+    </footer>
+
+        <script src="../js/products-data.js" defer></script>
+        <script src="../js/main.js" defer></script>
+        <script src="../js/product.js" defer></script>
+</body>
+</html>

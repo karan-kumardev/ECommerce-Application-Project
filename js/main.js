@@ -15,24 +15,26 @@ function saveCart(cart){
      updateCartBadge();
 
 }
-function addToCart(productId){
-   const cart=getCart();
-    const item=cart.find(entry => entry.id===productId);
-    if(item != undefined){
-        item.qty+=1;
+function addToCart(productId, qty = 1) {
+    const cart = getCart();
+    const item = cart.find(entry => entry.id === productId);
+
+    if (item !== undefined) {
+        item.qty += qty;
+    } else {
+        cart.push({ id: productId, qty: qty });
     }
-    else{
-        cart.push({id:productId, qty:1});
-        
-    }
+
     saveCart(cart);
 }
 
 function updateCartBadge(){
     const total = getCart().reduce((sum, entry) => sum + entry.qty, 0);
     const badge = document.getElementById("cart-count");
-    if (badge) {
+        if (badge) {
         badge.textContent = total;
+        // hide the badge completely when the cart is empty
+        badge.style.display = total === 0 ? "none" : "";
     }
 }
 updateCartBadge();
@@ -60,4 +62,7 @@ function removeFromCart(productId) {
     saveCart(cart);
 }
 
-
+function makeStars(rating) { //used by homepage and productpage
+    const n = Math.round(rating);
+    return "★".repeat(n) + "☆".repeat(5 - n);
+}

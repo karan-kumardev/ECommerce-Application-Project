@@ -12,11 +12,6 @@ const applyBtn = document.getElementById("apply-filters");
 const resetBtn = document.getElementById("reset-filters");
 
 
-function makeStars(rating) {
-    const n = Math.round(rating);
-    return "★".repeat(n) + "☆".repeat(5 - n);
-}
-
 // draws the given list of products into the grid
 function renderProducts(list) {
     if (list.length === 0) {
