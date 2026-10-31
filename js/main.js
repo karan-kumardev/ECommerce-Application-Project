@@ -37,6 +37,27 @@ function updateCartBadge(){
 }
 updateCartBadge();
 
+function changeQty(productId, change) {
+    const cart = getCart();
+    const item = cart.find(entry => entry.id === productId);
 
+    if (item === undefined) {
+        return;
+    }
+
+    item.qty += change;
+
+    if (item.qty <= 0) {
+        // quantity hit zero: drop the entry, keep the others
+        saveCart(cart.filter(entry => entry.id !== productId));
+    } else {
+        saveCart(cart);
+    }
+}
+
+function removeFromCart(productId) {
+    const cart = getCart().filter(entry => entry.id !== productId);
+    saveCart(cart);
+}
 
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/cart.css">
+    
+
+</head>
+<body>
+    
+          <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+        <main class="cart-page">
+
+            <h1 class="cart-page__title">Your Cart</h1>
+            <div class="cart-layout">
+
+                <section class="cart-items" id="cart-items">
+                    <!-- filled with js -->
+                </section>
+
+                <aside class="cart-summary" id="cart-summary">
+                        <h2 class="cart-summary__title">
+                            Order summary
+                        </h2> 
+
+                        <p class="cart-summary__row">
+                            Items
+                            <span id="summary-count"></span>
+                        
+                        </p>
+
+                        <p class="cart-summary__row cart-summary__row--total">
+                            Total
+                            <span id="summary-total"></span>
+                        </p>
+                        <a href="checkout.html" class="btn btn--primary">Proceed to checkout</a>
+
+                        <a href="index.html" class="btn btn--outline">
+                            Continue Shopping
+                        </a>
+                </aside>
+            </div>
+
+            <div class="cart-empty" id="cart-empty" hidden>
+                    <p>Your Cart is Empty</p>
+                    <a href="index.html" class="btn btn--primary">Start Shopping</a>
+            </div>
+
+        </main>
+
+     <footer class="site-footer">
+        <p class="site-footer__text">Text with copyright claim will end in end</p>
+    </footer>
+
+   
+    <script src="../js/products-data.js" defer></script>
+    <script src="../js/main.js" defer></script>
+     <script src="../js/cart.js" defer></script>
+</body>
+</html>
