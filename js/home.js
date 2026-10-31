@@ -108,5 +108,12 @@ searchForm.addEventListener("submit", event => {
     applyAll();
 });
 
+grid.addEventListener("click", event => {
+    const button = event.target.closest(".product-card__add");
+    if (!button) return;
+    addToCart(Number(button.dataset.id));
+});
+
 // first draw
 applyAll();
+
