@@ -44,7 +44,11 @@ function applyAll() {
 
     // filter() returns a new array, so the original `products` is never changed
     const result = products.filter(product => {
-        if (text && !product.name.toLowerCase().includes(text)) return false;
+        if (text) {
+    // search in the name, the category and the description
+        const searchable = (product.name + " " + product.category + " " + product.description).toLowerCase();
+        if (!searchable.includes(text)) return false;
+    }   
         if (selected.length > 0 && !selected.includes(product.category)) return false;
         if (min !== null && product.price < min) return false;
         if (max !== null && product.price > max) return false;
@@ -88,6 +92,18 @@ searchForm.addEventListener("submit", event => {
 });
 
 
+let searchTimer;
+searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(applyAll, 250);
+});
+
+// a search sent from another page arrives as  index.html?q=laptop
+const startQuery = new URLSearchParams(window.location.search).get("q");
+if (startQuery) {
+    searchInput.value = startQuery;
+}
+
 grid.addEventListener("click", event => {
     const heart = event.target.closest(".product-card__wishlist");
     if (heart) {
@@ -102,5 +118,9 @@ grid.addEventListener("click", event => {
 });
 
 // first draw
-applyAll();
-
+loadProducts()
+    .then(applyAll)
+    .catch(() => {
+        grid.innerHTML = '<p style="grid-column: 1 / -1;">Could not load products. Is the server running?</p>';
+        count.textContent = "";
+    });

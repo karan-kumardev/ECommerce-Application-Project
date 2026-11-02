@@ -87,4 +87,4 @@ pdfBtn.addEventListener("click", () => {
     doc.save("wishlist.pdf");
 });
 
-renderWishlist();
+loadProducts().then(renderWishlist);

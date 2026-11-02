@@ -9,23 +9,32 @@ const breadcrumbName = document.getElementById("breadcrumb-name");
 // read ?id=5 from the address bar
 const params = new URLSearchParams(window.location.search);
 const productId = Number(params.get("id"));
-const product = products.find(p => p.id === productId);
+// filled in after the server answers
+let product = null;
 
 // quantity chosen with the - / + picker
 let quantity = 1;
 
-if (product === undefined) {
-    document.title = "Product not found";
-    missing.hidden = false;
-    detail.hidden = true;
-    reviewsSection.hidden = true;
-} else {
+async function loadPage() {
+    try {
+        const res = await fetch("/api/products/" + productId);
+        if (!res.ok) throw new Error("not found");
+        product = await res.json();
+    } catch (err) {
+        document.title = "Product not found";
+        missing.hidden = false;
+        detail.hidden = true;
+        reviewsSection.hidden = true;
+        return;
+    }
+
     document.title = product.name;
     breadcrumbName.textContent = product.name;
     renderDetail();
     renderReviews();
 }
 
+loadPage();
 function stockText(stock) {
     if (stock === 0) return "Out of stock";
     if (stock <= 5) return "Only " + stock + " left";
@@ -96,11 +105,11 @@ function renderReviews() {
             listHtml += `
             <article class="review">
                 <div class="review__head">
-                    <span class="review__author">${review.author}</span>
+                    <span class="review__author">${escapeHTML(review.author)}</span>
                     <span class="review__stars">${makeStars(review.rating)}</span>
                     <span class="review__date">${date}</span>
                 </div>
-                <p class="review__text">${review.comment}</p>
+                <p class="review__text">${escapeHTML(review.comment)}</p>
             </article>`;
         });
     }

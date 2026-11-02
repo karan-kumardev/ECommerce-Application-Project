@@ -75,4 +75,4 @@ cartItems.addEventListener("click", event => {
     renderCart();
 });
 
-renderCart();
+loadProducts().then(renderCart);

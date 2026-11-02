@@ -1,3 +1,23 @@
+// ----- products come from the server (the database) -----
+let products = [];
+
+async function loadProducts() {
+    const res = await fetch("/api/products");
+    if (!res.ok) throw new Error("Could not load products");
+    products = await res.json();
+    return products;
+}
+
+// makes text safe to put inside HTML (use it for anything a user typed)
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
 const CART_KEY="cart";
 
 function getCart(){
@@ -133,3 +153,14 @@ window.addEventListener("pageshow", event => {
         location.reload();
     }
 });
+
+// ----- search box in the header -----
+// On every page except the home page, a search is sent to the home page, which shows the results.
+const headerSearchForm = document.querySelector(".search-form");
+if (headerSearchForm && !document.getElementById("product-grid")) {
+    headerSearchForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const text = document.getElementById("search-input").value.trim();
+        window.location.href = "index.html" + (text ? "?q=" + encodeURIComponent(text) : "");
+    });
+}
