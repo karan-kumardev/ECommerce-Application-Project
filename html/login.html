@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    
+     <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" id="auth-link" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+         <main class="auth-page">
+        <div class="auth-card">
+
+            <div class="auth-tabs">
+                <button type="button" class="auth-tabs__btn auth-tabs__btn--active" id="tab-login">Log in</button>
+                <button type="button" class="auth-tabs__btn" id="tab-signup">Sign up</button>
+            </div>
+
+            <p class="auth-message" id="auth-message" hidden></p>
+
+            <!-- LOGIN FORM -->
+            <form class="auth-form" id="login-form" novalidate>
+                <label class="auth-form__label" for="login-email">Email</label>
+                <input class="auth-form__input" type="email" id="login-email" required>
+
+                <label class="auth-form__label" for="login-password">Password</label>
+                <input class="auth-form__input" type="password" id="login-password" required>
+
+                <button type="submit" class="btn btn--primary auth-form__submit">Log in</button>
+            </form>
+
+            <!-- SIGNUP FORM -->
+            <form class="auth-form" id="signup-form" novalidate hidden>
+                <label class="auth-form__label" for="signup-name">Full name</label>
+                <input class="auth-form__input" type="text" id="signup-name" required>
+
+                <label class="auth-form__label" for="signup-email">Email</label>
+                <input class="auth-form__input" type="email" id="signup-email" required>
+
+                <label class="auth-form__label" for="signup-password">Password (min 6 characters)</label>
+                <input class="auth-form__input" type="password" id="signup-password" minlength="6" required>
+
+                <button type="submit" class="btn btn--primary auth-form__submit">Create account</button>
+            </form>
+
+        </div>
+    </main>
+
+    
+     <footer class="site-footer">
+        <p class="site-footer__text">Text with copyright claim will end in end</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+
+</body>
+</html>

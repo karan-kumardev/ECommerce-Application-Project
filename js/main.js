@@ -18,23 +18,60 @@ function escapeHTML(value) {
         .replace(/'/g, "&#39;");
 }
 
-const CART_KEY="cart";
+// ----- who owns the cart and wishlist? -----
+// Guest:  keys "cart" and "wishlist".
+// Logged in:  keys "cart_id" and "wishlist_id" (id is user id), so every user has their own.
+function userSuffix() {
+    const id = localStorage.getItem("userId");
+    return id ? "_" + id : "";
+}
+function cartKey() { return "cart" + userSuffix(); }
+function wishlistKey() { return "wishlist" + userSuffix(); }
 
-function getCart(){
+// called when the logged-in user changes (login, logout, signup).
+// id = the new user's id, or null for a guest.
+function switchUser(id) {
+    if (id === null || id === undefined) {
+        localStorage.removeItem("userId");
+        return;
+    }
+    id = String(id);
 
-   const text=localStorage.getItem(CART_KEY);
-    if (text === null)
+    // whatever the guest put in the cart / wishlist is moved into this user's lists
+    const guestCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const userCart = JSON.parse(localStorage.getItem("cart_" + id) || "[]");
+    guestCart.forEach(item => {
+        const same = userCart.find(entry => entry.id === item.id);
+        if (same) same.qty += item.qty;
+        else userCart.push(item);
+    });
+    localStorage.setItem("cart_" + id, JSON.stringify(userCart));
+
+    const guestWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const userWishlist = JSON.parse(localStorage.getItem("wishlist_" + id) || "[]");
+    guestWishlist.forEach(productId => {
+        if (!userWishlist.includes(productId)) userWishlist.push(productId);
+    });
+    localStorage.setItem("wishlist_" + id, JSON.stringify(userWishlist));
+
+    localStorage.removeItem("cart");
+    localStorage.removeItem("wishlist");
+    localStorage.setItem("userId", id);
+}
+
+function getCart() {
+    const text = localStorage.getItem(cartKey());
+    if (text === null) {
         return [];
-
+    }
     return JSON.parse(text);
 }
 
-function saveCart(cart){
-
-    localStorage.setItem(CART_KEY,JSON.stringify(cart));
-     updateCartBadge();
-
+function saveCart(cart) {
+    localStorage.setItem(cartKey(), JSON.stringify(cart));
+    updateCartBadge();
 }
+
 function addToCart(productId, qty = 1) {
     const cart = getCart();
     const item = cart.find(entry => entry.id === productId);
@@ -48,15 +85,16 @@ function addToCart(productId, qty = 1) {
     saveCart(cart);
 }
 
-function updateCartBadge(){
+function updateCartBadge() {
     const total = getCart().reduce((sum, entry) => sum + entry.qty, 0);
     const badge = document.getElementById("cart-count");
-        if (badge) {
+    if (badge) {
         badge.textContent = total;
         // hide the badge completely when the cart is empty
         badge.style.display = total === 0 ? "none" : "";
     }
 }
+
 updateCartBadge();
 
 function changeQty(productId, change) {
@@ -82,15 +120,16 @@ function removeFromCart(productId) {
     saveCart(cart);
 }
 
-function makeStars(rating) { //used by homepage and productpage
+// 4.3 -> "★★★★☆"
+function makeStars(rating) {
     const n = Math.round(rating);
     return "★".repeat(n) + "☆".repeat(5 - n);
 }
+
 // ----- wishlist (list of product ids, saved in localStorage) -----
-const WISHLIST_KEY = "wishlist";
 
 function getWishlist() {
-    const text = localStorage.getItem(WISHLIST_KEY);
+    const text = localStorage.getItem(wishlistKey());
     if (text === null) {
         return [];
     }
@@ -115,7 +154,7 @@ function toggleWishlist(productId) {
         saved = true;
     }
 
-    localStorage.setItem(WISHLIST_KEY, JSON.stringify(list));
+    localStorage.setItem(wishlistKey(), JSON.stringify(list));
     return saved;
 }
 
@@ -148,6 +187,10 @@ function makeCardHTML(product) {
             </div>
         </article>`;
 }
+
+// Pressing the browser's Back button can show an old copy of the page from memory
+// (the scripts do not run again), so the badge, hearts and lists would be out of date.
+// When that happens, reload the page so everything is read fresh from localStorage.
 window.addEventListener("pageshow", event => {
     if (event.persisted) {
         location.reload();
@@ -164,3 +207,36 @@ if (headerSearchForm && !document.getElementById("product-grid")) {
         window.location.href = "index.html" + (text ? "?q=" + encodeURIComponent(text) : "");
     });
 }
+
+// ----- header login link (runs on every page) -----
+// Logged out: link says "LogIn" and goes to login.html.
+// Logged in: link says "Log out (Name)" and logs the user out when clicked.
+let currentUser = null;
+
+const authReady = fetch("/api/auth/me")
+    .then(res => res.json())
+    .then(data => {
+        currentUser = data.user;
+
+        // the server is the truth: if the saved owner is different, fix it and reload once
+        const savedId = localStorage.getItem("userId");
+        const realId = currentUser ? String(currentUser.id) : null;
+        if (realId !== savedId) {
+            switchUser(realId);
+            location.reload();
+            return;
+        }
+
+        const link = document.getElementById("auth-link");
+        if (!link || !currentUser) return;
+
+        link.textContent = "Log out (" + currentUser.name.split(" ")[0] + ")";
+        link.href = "#";
+        link.addEventListener("click", async event => {
+            event.preventDefault();
+            await fetch("/api/auth/logout", { method: "POST" });
+            switchUser(null);
+            window.location.href = "index.html";
+        });
+    })
+    .catch(() => {});
