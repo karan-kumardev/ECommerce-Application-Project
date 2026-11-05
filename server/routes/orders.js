@@ -104,6 +104,7 @@ router.post("/", requireAuth, wrap(async (req, res) => {
 router.get("/", requireAuth, wrap(async (req, res) => {
     const [rows] = await pool.query(
         `SELECT o.id, o.total_amount, o.status, o.created_at,
+                (SELECT COUNT(*) FROM orders o2 WHERE o2.user_id = o.user_id AND o2.id <= o.id) AS order_number,
                 (SELECT COALESCE(SUM(quantity), 0) FROM order_items WHERE order_id = o.id) AS item_count
          FROM orders o
          WHERE o.user_id = ?
@@ -113,6 +114,7 @@ router.get("/", requireAuth, wrap(async (req, res) => {
 
     res.json(rows.map(r => ({
         id: r.id,
+        orderNumber: Number(r.order_number),   // 1 for this user's first order, 2 for the second, ...
         total: Number(r.total_amount),
         status: r.status,
         createdAt: r.created_at,
@@ -127,6 +129,7 @@ router.get("/:id", requireAuth, wrap(async (req, res) => {
 
     const [rows] = await pool.query(
         `SELECT o.id, o.user_id, o.total_amount, o.status, o.created_at,
+                (SELECT COUNT(*) FROM orders o2 WHERE o2.user_id = o.user_id AND o2.id <= o.id) AS order_number,
                 a.full_name, a.phone, a.address_line, a.city, a.postal_code,
                 u.name AS customer_name, u.email AS customer_email
          FROM orders o
@@ -153,6 +156,7 @@ router.get("/:id", requireAuth, wrap(async (req, res) => {
 
     res.json({
         id: o.id,
+        orderNumber: Number(o.order_number),   // 1 for this user's first order, 2 for the second, ...
         status: o.status,
         total: Number(o.total_amount),
         createdAt: o.created_at,

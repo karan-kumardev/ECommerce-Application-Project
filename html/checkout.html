@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" id="auth-link" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="checkout-page">
+        <h1 class="checkout-page__title">Checkout</h1>
+
+        <form class="checkout-layout" id="checkout-form" novalidate>
+
+            <!-- LEFT: delivery address -->
+            <section class="checkout-box">
+                <h2 class="checkout-box__title">Delivery address</h2>
+
+                <!-- saved addresses (filled with js; stays empty if the user has none) -->
+                <div class="address-list" id="address-list"></div>
+
+                <!-- the new address form -->
+                <div class="address-form" id="new-address-fields">
+                    <div class="address-form__row">
+                        <label class="address-form__label" for="addr-name">Full name</label>
+                        <input class="address-form__input" type="text" id="addr-name" autocomplete="name" placeholder="John Snow">
+                        <p class="address-form__error" id="err-name" hidden></p>
+                    </div>
+                    <div class="address-form__row">
+                        <label class="address-form__label" for="addr-phone">Phone</label>
+                        <input class="address-form__input" type="tel" id="addr-phone" autocomplete="tel" placeholder="0300 4573577">
+                        <p class="address-form__error" id="err-phone" hidden></p>
+                    </div>
+                    <div class="address-form__row address-form__row--full">
+                        <label class="address-form__label" for="addr-line">Address</label>
+                        <input class="address-form__input" type="text" id="addr-line" autocomplete="street-address" placeholder="Mission Road">
+                        <p class="address-form__error" id="err-line" hidden></p>
+                    </div>
+                    <div class="address-form__row">
+                        <label class="address-form__label" for="addr-city">City</label>
+                        <input class="address-form__input" type="text" id="addr-city" placeholder="Sukkur">
+                        <p class="address-form__error" id="err-city" hidden></p>
+                    </div>
+                    <div class="address-form__row">
+                        <label class="address-form__label" for="addr-postal">Postal code (optional)</label>
+                        <input class="address-form__input" type="text" id="addr-postal" placeholder="112">
+                        <p class="address-form__error" id="err-postal" hidden></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT: order summary -->
+            <aside class="checkout-box checkout-summary">
+                <h2 class="checkout-box__title">Order summary</h2>
+
+                <div class="checkout-items" id="checkout-items"></div>
+
+                <p class="checkout-summary__row">Items <span id="checkout-count"></span></p>
+                <p class="checkout-summary__row checkout-summary__row--total">Total <span id="checkout-total"></span></p>
+
+                <p class="checkout-message" id="checkout-message" hidden></p>
+
+                <button type="submit" class="btn btn--primary checkout-summary__button" id="place-order-btn">Place order</button>
+                <a href="cart.html" class="btn btn--outline checkout-summary__button">Back to cart</a>
+            </aside>
+
+        </form>
+    </main>
+
+    <footer class="site-footer">
+        <p class="site-footer__text">Text with copyright claim will end in end</p>
+    </footer>
+
+    <script src="../js/main.js" defer></script>
+    <script src="../js/checkout.js" defer></script>
+</body>
+</html>
