@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My account</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/account.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" id="auth-link" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="account-page">
+        <h1 class="account-page__title">My account</h1>
+
+        <div class="account-layout">
+
+            <!-- LEFT: profile + addresses -->
+            <div class="account-side">
+
+                <section class="account-box">
+                    <h2 class="account-box__title">Profile</h2>
+                    <p class="profile__name" id="profile-name"></p>
+                    <p class="profile__email" id="profile-email"></p>
+                </section>
+
+                <section class="account-box">
+                    <h2 class="account-box__title">Saved addresses</h2>
+
+                    <div class="address-items" id="address-items"></div>
+
+                    <button type="button" class="btn btn--outline account-box__button" id="show-address-form">Add new address</button>
+
+                    <form class="account-form" id="address-form" novalidate hidden>
+                        <label class="account-form__label" for="acc-name">Full name</label>
+                        <input class="account-form__input" type="text" id="acc-name" autocomplete="name">
+                        <p class="account-form__error" id="acc-err-name" hidden></p>
+
+                        <label class="account-form__label" for="acc-phone">Phone</label>
+                        <input class="account-form__input" type="tel" id="acc-phone" autocomplete="tel">
+                        <p class="account-form__error" id="acc-err-phone" hidden></p>
+
+                        <label class="account-form__label" for="acc-line">Address</label>
+                        <input class="account-form__input" type="text" id="acc-line" autocomplete="street-address">
+                        <p class="account-form__error" id="acc-err-line" hidden></p>
+
+                        <label class="account-form__label" for="acc-city">City</label>
+                        <input class="account-form__input" type="text" id="acc-city">
+                        <p class="account-form__error" id="acc-err-city" hidden></p>
+
+                        <label class="account-form__label" for="acc-postal">Postal code (optional)</label>
+                        <input class="account-form__input" type="text" id="acc-postal">
+                        <p class="account-form__error" id="acc-err-postal" hidden></p>
+
+                        <p class="account-form__error" id="address-message" hidden></p>
+
+                        <div class="account-form__buttons">
+                            <button type="submit" class="btn btn--primary" id="save-address-btn">Save address</button>
+                            <button type="button" class="btn btn--outline" id="cancel-address-btn">Cancel</button>
+                        </div>
+                    </form>
+                </section>
+
+            </div>
+
+            <!-- RIGHT: order history -->
+            <section class="account-box">
+                <h2 class="account-box__title">My orders</h2>
+                <div class="order-list" id="order-list"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p class="site-footer__text">Text with copyright claim will end in end</p>
+    </footer>
+
+    <script src="../js/main.js" defer></script>
+    <script src="../js/account.js" defer></script>
+</body>
+</html>

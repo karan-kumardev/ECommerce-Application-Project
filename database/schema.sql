@@ -87,4 +87,11 @@
 -- ) ENGINE=InnoDB;
 
 use shop_db;
-select * from shop_db;
+select * from orders where address_id=2;
+
+ SELECT * FROM users where name like 'Aman'; 
+ 
+ SELECT * FROM order_items; 
+ SELECT id, name, stock FROM products WHERE id IN (1,2);
+ 
+ 

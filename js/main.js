@@ -19,8 +19,8 @@ function escapeHTML(value) {
 }
 
 // ----- who owns the cart and wishlist? -----
-// Guest:  keys "cart" and "wishlist".
-// Logged in:  keys "cart_id" and "wishlist_id" (id is user id), so every user has their own.
+// Guest:      keys "cart" and "wishlist".
+// Logged in:  keys "cart_5" and "wishlist_5" (5 = the user id), so every user has their own.
 function userSuffix() {
     const id = localStorage.getItem("userId");
     return id ? "_" + id : "";
@@ -229,6 +229,13 @@ const authReady = fetch("/api/auth/me")
 
         const link = document.getElementById("auth-link");
         if (!link || !currentUser) return;
+
+        // an "Account" link appears just before "Log out"
+        const accountLink = document.createElement("a");
+        accountLink.href = "account.html";
+        accountLink.className = "nav-link";
+        accountLink.textContent = "Account";
+        link.before(accountLink);
 
         link.textContent = "Log out (" + currentUser.name.split(" ")[0] + ")";
         link.href = "#";

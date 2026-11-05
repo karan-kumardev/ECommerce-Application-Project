@@ -2,7 +2,7 @@
 const express = require("express");
 const pool = require("../db");
 const { listProducts, getProduct } = require("../queries");
-const { requireAuth } = require("../middleware/auth");
+const { requireAuth, readUser } = require("../middleware/auth");
 const { HttpError, wrap, text } = require("../utils");
 
 const router = express.Router();
@@ -17,7 +17,8 @@ router.get("/:id", wrap(async (req, res) => {
     const id = Number(req.params.id);
     if (!Number.isInteger(id) || id < 1) throw new HttpError(404, "Product not found");
 
-    const product = await getProduct(id);
+    const viewer = readUser(req);   // null for guests; used to mark the viewer's own review
+    const product = await getProduct(id, viewer ? viewer.id : null);
     if (!product) throw new HttpError(404, "Product not found");
 
     res.json(product);

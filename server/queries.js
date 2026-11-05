@@ -30,7 +30,7 @@ async function listProducts() {
 }
 
 // one product with its images and reviews, or null
-async function getProduct(id) {
+async function getProduct(id, viewerId = null) {
     const [rows] = await pool.query(`${BASE_SELECT} WHERE p.id = ? AND p.is_active = 1 GROUP BY p.id`, [id]);
     if (rows.length === 0) return null;
 
@@ -40,14 +40,15 @@ async function getProduct(id) {
     product.images = images.length ? images.map(i => i.url) : [product.image];
 
     const [reviews] = await pool.query(
-        "SELECT rating, comment, author_name, created_at FROM reviews WHERE product_id = ? ORDER BY created_at DESC, id DESC",
+        "SELECT rating, comment, author_name, user_id, created_at FROM reviews WHERE product_id = ? ORDER BY created_at DESC, id DESC",
         [id]
     );
     product.reviews = reviews.map(r => ({
         rating: r.rating,
         comment: r.comment,
         author: r.author_name,
-        date: r.created_at
+        date: r.created_at,
+        mine: viewerId !== null && r.user_id === viewerId   // true for the logged-in user's own review
     }));
 
     return product;
