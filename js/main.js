@@ -8,6 +8,11 @@ async function loadProducts() {
     return products;
 }
 
+// the database stores pending / successful / cancelled; the screens say "Successful" for successful
+function statusLabel(status) {
+    return status === "successful" ? "Successful" : status;
+}
+
 // makes text safe to put inside HTML (use it for anything a user typed)
 function escapeHTML(value) {
     return String(value)
@@ -172,12 +177,12 @@ function makeCardHTML(product) {
     return `
         <article class="product-card">
             <a href="product.html?id=${product.id}" class="product-card__image-link">
-                <img src="${product.image}" alt="${product.name}" class="product-card__image">
+                <img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}" class="product-card__image">
             </a>
             <button type="button" class="product-card__wishlist${saved ? " product-card__wishlist--active" : ""}" data-id="${product.id}" aria-label="${saved ? "Remove from wishlist" : "Add to wishlist"}">${saved ? "&#9829;" : "&#9825;"}</button>
             <div class="product-card__body">
-                <span class="product-card__category">${product.category}</span>
-                <h3 class="product-card__title"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                <span class="product-card__category">${escapeHTML(product.category)}</span>
+                <h3 class="product-card__title"><a href="product.html?id=${product.id}">${escapeHTML(product.name)}</a></h3>
                 <div class="product-card__rating">
                     <span class="product-card__stars">${makeStars(product.rating)}</span>
                     <span class="product-card__reviews">(${product.reviewCount})</span>
@@ -229,6 +234,15 @@ const authReady = fetch("/api/auth/me")
 
         const link = document.getElementById("auth-link");
         if (!link || !currentUser) return;
+
+        // admins also get an "Admin" link
+        if (currentUser.role === "admin") {
+            const adminLink = document.createElement("a");
+            adminLink.href = "admin-dashboard.html";
+            adminLink.className = "nav-link";
+            adminLink.textContent = "Admin";
+            link.before(adminLink);
+        }
 
         // an "Account" link appears just before "Log out"
         const accountLink = document.createElement("a");

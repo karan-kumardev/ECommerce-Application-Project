@@ -37,9 +37,9 @@ function renderCart() {
 
         html += `
         <article class="cart-item">
-            <img src="${product.image}" alt="${product.name}" class="cart-item__image">
+            <img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}" class="cart-item__image">
             <div class="cart-item__info">
-                <h3 class="cart-item__title"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                <h3 class="cart-item__title"><a href="product.html?id=${product.id}">${escapeHTML(product.name)}</a></h3>
                 <p class="cart-item__price">$${product.price.toFixed(2)}</p>
             </div>
             <div class="cart-item__qty">
@@ -48,7 +48,7 @@ function renderCart() {
                 <button type="button" class="cart-item__qty-btn" data-id="${product.id}" data-action="increase" aria-label="Increase quantity">+</button>
             </div>
             <p class="cart-item__subtotal">$${lineTotal.toFixed(2)}</p>
-            <button type="button" class="cart-item__remove" data-id="${product.id}" aria-label="Remove ${product.name} from cart">Remove</button>
+            <button type="button" class="cart-item__remove" data-id="${product.id}" aria-label="Remove ${escapeHTML(product.name)} from cart">Remove</button>
         </article>`;
     });
 

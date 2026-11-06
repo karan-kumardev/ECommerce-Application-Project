@@ -44,23 +44,28 @@ function renderReceipt(order) {
             <div>
                 <h1 class="receipt__title">Order #${order.orderNumber}</h1>
                 <p class="receipt__date">${date}</p>
+                ${currentUser && currentUser.role === "admin" ? '<p class="receipt__date">Database order ID: ' + order.id + "</p>" : ""}
             </div>
-            <span class="receipt__status receipt__status--${order.status}">${order.status}</span>
+            <span class="receipt__status receipt__status--${order.status}">${statusLabel(order.status)}</span>
         </div>
 
         <div class="receipt__cols">
             <div>
                 <h2 class="receipt__subtitle">Customer</h2>
-                <p>${escapeHTML(order.customer.name)}<br>${escapeHTML(order.customer.email)}</p>
+                <dl class="receipt__list">
+                    <dt>Name</dt><dd>${escapeHTML(order.customer.name)}</dd>
+                    <dt>Email</dt><dd>${escapeHTML(order.customer.email)}</dd>
+                </dl>
             </div>
             <div>
                 <h2 class="receipt__subtitle">Delivery address</h2>
-                <p>
-                    ${escapeHTML(a.fullName)}<br>
-                    ${escapeHTML(a.addressLine)}<br>
-                    ${escapeHTML(a.city)}${a.postalCode ? " " + escapeHTML(a.postalCode) : ""}<br>
-                    ${escapeHTML(a.phone)}
-                </p>
+                <dl class="receipt__list">
+                    <dt>Name</dt><dd>${escapeHTML(a.fullName)}</dd>
+                    <dt>Phone</dt><dd>${escapeHTML(a.phone)}</dd>
+                    <dt>Address</dt><dd>${escapeHTML(a.addressLine)}</dd>
+                    <dt>City</dt><dd>${escapeHTML(a.city)}</dd>
+                    ${a.postalCode ? "<dt>Postal code</dt><dd>" + escapeHTML(a.postalCode) + "</dd>" : ""}
+                </dl>
             </div>
         </div>
 
@@ -77,7 +82,7 @@ function renderReceipt(order) {
         <p class="receipt__total">Total <span>${money(order.total)}</span></p>
 
         <div class="receipt__actions">
-            <button type="button" class="btn btn--primary" id="pdf-btn">Download Bill</button>
+            <button type="button" class="btn btn--primary" id="pdf-btn">Download PDF</button>
             <a href="index.html" class="btn btn--outline">Continue shopping</a>
         </div>`;
 
@@ -101,21 +106,35 @@ function downloadPdf() {
     doc.setFontSize(20);
     doc.text("Order #" + order.orderNumber, 20, 22);
     doc.setFontSize(11);
-    doc.text(date + "   |   Status: " + order.status, 20, 30);
+    doc.text(date + "   |   Status: " + statusLabel(order.status), 20, 30);
 
-    // ----- customer (left) and delivery address (right) -----
+    // ----- customer (left) and delivery address (right), each line has a label -----
     const a = order.address;
     doc.setFontSize(9);
     doc.text("CUSTOMER", 20, 44);
     doc.text("DELIVERY ADDRESS", 110, 44);
 
-    doc.setFontSize(11);
-    doc.text(doc.splitTextToSize(order.customer.name, 80).concat(doc.splitTextToSize(order.customer.email, 80)), 20, 51);
-    const addressLines = [a.fullName, a.addressLine, a.city + (a.postalCode ? " " + a.postalCode : ""), a.phone];
-    doc.text(addressLines.flatMap(line => doc.splitTextToSize(line, 80)), 110, 51);
+    const customerLines = [
+        "Name: " + order.customer.name,
+        "Email: " + order.customer.email
+    ];
+    const addressLines = [
+        "Name: " + a.fullName,
+        "Phone: " + a.phone,
+        "Address: " + a.addressLine,
+        "City: " + a.city
+    ];
+    if (a.postalCode) addressLines.push("Postal code: " + a.postalCode);
 
-    // ----- table header -----
-    let y = 82;
+    doc.setFontSize(11);
+    const left = customerLines.flatMap(line => doc.splitTextToSize(line, 80));
+    const right = addressLines.flatMap(line => doc.splitTextToSize(line, 80));
+    doc.text(left, 20, 51);
+    doc.text(right, 110, 51);
+
+    // ----- table header: starts under the longer of the two blocks -----
+    const lineHeight = doc.getLineHeightFactor() * doc.getFontSize() / doc.internal.scaleFactor;
+    let y = 51 + Math.max(left.length, right.length) * lineHeight + 8;
     doc.setFontSize(10);
     doc.text("PRODUCT", 20, y);
     doc.text("QTY", 135, y, { align: "right" });

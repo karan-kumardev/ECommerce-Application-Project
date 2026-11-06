@@ -102,13 +102,13 @@ router.get("/orders", wrap(async (req, res) => {
     })));
 }));
 
-// PATCH /api/admin/orders/12/status  { status: "confirmed" | "cancelled" | "pending" }
+// PATCH /api/admin/orders/12/status  { status: "successful" | "cancelled" | "pending" }
 router.patch("/orders/:id/status", wrap(async (req, res) => {
     const id = Number(req.params.id);
     const status = req.body.status;
     if (!Number.isInteger(id) || id < 1) throw new HttpError(404, "Order not found");
-    if (!["pending", "confirmed", "cancelled"].includes(status)) {
-        throw new HttpError(400, "Status must be pending, confirmed or cancelled");
+    if (!["pending", "successful", "cancelled"].includes(status)) {
+        throw new HttpError(400, "Status must be pending, successful or cancelled");
     }
 
     const conn = await pool.getConnection();

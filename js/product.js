@@ -58,28 +58,28 @@ function renderDetail() {
     let thumbs = "";
     images.forEach((src, i) => {
         thumbs += `
-            <button type="button" class="gallery__thumb ${i === 0 ? "gallery__thumb--active" : ""}" data-src="${src}" aria-label="Show image ${i + 1}">
-                <img src="${src}" alt="${product.name} view ${i + 1}">
+            <button type="button" class="gallery__thumb ${i === 0 ? "gallery__thumb--active" : ""}" data-src="${escapeHTML(src)}" aria-label="Show image ${i + 1}">
+                <img src="${escapeHTML(src)}" alt="${escapeHTML(product.name)} view ${i + 1}">
             </button>`;
     });
 
     detail.innerHTML = `
         <div class="gallery">
-            <img src="${images[0]}" alt="${product.name}" class="gallery__main" id="gallery-main">
+            <img src="${escapeHTML(images[0])}" alt="${escapeHTML(product.name)}" class="gallery__main" id="gallery-main">
             <div class="gallery__thumbs">${thumbs}
             </div>
         </div>
 
         <div class="product-info">
-            <span class="product-info__category">${product.category}</span>
-            <h1 class="product-info__title">${product.name}</h1>
+            <span class="product-info__category">${escapeHTML(product.category)}</span>
+            <h1 class="product-info__title">${escapeHTML(product.name)}</h1>
             <div class="product-info__rating">
                 <span class="product-info__stars">${makeStars(product.rating)}</span>
                 <span class="product-info__reviews">${product.rating.toFixed(1)} (${product.reviewCount} review${product.reviewCount === 1 ? "" : "s"})</span>
             </div>
             <p class="product-info__price">$${product.price.toFixed(2)}</p>
             <p class="product-info__stock ${stockClass(product.stock)}">${stockText(product.stock)}</p>
-            <p class="product-info__description">${product.description}</p>
+            <p class="product-info__description">${escapeHTML(product.description)}</p>
 
             <div class="product-info__actions">
                 <div class="qty-picker">

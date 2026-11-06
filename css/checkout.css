@@ -258,9 +258,9 @@
     background: #fef3c7;
 }
 
-.receipt__status--confirmed {
-    color: #15803d;
-    background: #dcfce7;
+.receipt__status--successful {
+    color: #ffffff;
+    background: #16a34a;
 }
 
 .receipt__status--cancelled {
@@ -282,6 +282,23 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-muted);
+}
+
+.receipt__list {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 4px 12px;
+}
+
+.receipt__list dt {
+    color: var(--color-muted);
+}
+
+.receipt__list dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
 }
 
 .receipt__table-wrap {

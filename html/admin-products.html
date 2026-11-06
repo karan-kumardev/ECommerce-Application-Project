@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage products</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+
+            <a href="index.html" class="site-header__logo">My Shop name</a>
+
+            <form action="" class="search-form">
+                <input type="search" class="search-form__input" id="search-input" placeholder="Search Products" aria-label="Search products">
+                <button type="submit" class="search-form__button">Search</button>
+            </form>
+
+            <nav class="site-header__nav">
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="cart.html" class="nav-link">Cart
+                    <span class="nav-link__badge" id="cart-count">0</span>
+                </a>
+                <a href="login.html" id="auth-link" class="nav-link">LogIn</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="admin-page">
+        <div class="admin-layout">
+
+            <aside class="admin-nav">
+                <p class="admin-nav__title">Admin panel</p>
+                <a href="admin-dashboard.html" class="admin-nav__link">Dashboard</a>
+                <a href="admin-products.html" class="admin-nav__link admin-nav__link--active">Products</a>
+                <a href="admin-orders.html" class="admin-nav__link">Orders</a>
+                <a href="index.html" class="admin-nav__link admin-nav__link--back">&larr; Back to shop</a>
+            </aside>
+
+            <!-- hidden until js has checked that the user is an admin -->
+            <section class="admin-main" id="admin-main" hidden>
+                <div class="admin-main__head">
+                    <h1 class="admin-main__title">Products</h1>
+                    <button type="button" class="btn btn--primary" id="add-product-btn">Add product</button>
+                </div>
+
+                <!-- add / edit form -->
+                <section class="admin-box" id="product-panel" hidden>
+                    <h2 class="admin-box__title" id="panel-title">Add product</h2>
+
+                    <form class="admin-form" id="product-form" novalidate>
+                        <div class="admin-form__row admin-form__row--full">
+                            <label class="admin-form__label" for="pf-name">Name</label>
+                            <input class="admin-form__input" type="text" id="pf-name">
+                            <p class="admin-form__error" id="pf-err-name" hidden></p>
+                        </div>
+
+                        <div class="admin-form__row">
+                            <label class="admin-form__label" for="pf-category">Category</label>
+                            <select class="admin-form__input" id="pf-category">
+                                <option value="">Choose a category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="home">Home</option>
+                                <option value="beauty">Beauty</option>
+                                <option value="sports">Sports</option>
+                                <option value="accessories">Accessories</option>
+                            </select>
+                            <p class="admin-form__error" id="pf-err-category" hidden></p>
+                        </div>
+
+                        <div class="admin-form__row">
+                            <label class="admin-form__label" for="pf-price">Price ($)</label>
+                            <input class="admin-form__input" type="number" id="pf-price" min="0" step="0.01">
+                            <p class="admin-form__error" id="pf-err-price" hidden></p>
+                        </div>
+
+                        <div class="admin-form__row">
+                            <label class="admin-form__label" for="pf-stock">Stock</label>
+                            <input class="admin-form__input" type="number" id="pf-stock" min="0" step="1">
+                            <p class="admin-form__error" id="pf-err-stock" hidden></p>
+                        </div>
+
+                        <div class="admin-form__row">
+                            <label class="admin-form__label" for="pf-image">Image path (optional)</label>
+                            <input class="admin-form__input" type="text" id="pf-image" placeholder="../images/products/p01-1.webp">
+                            <p class="admin-form__hint">Leave empty to use the default image.</p>
+                        </div>
+
+                        <div class="admin-form__row admin-form__row--full">
+                            <label class="admin-form__label" for="pf-desc">Description</label>
+                            <textarea class="admin-form__input" id="pf-desc" rows="4"></textarea>
+                        </div>
+
+                        <p class="admin-form__error" id="pf-err-server" hidden></p>
+
+                        <div class="admin-form__buttons">
+                            <button type="submit" class="btn btn--primary" id="pf-save">Save product</button>
+                            <button type="button" class="btn btn--outline" id="pf-cancel">Cancel</button>
+                        </div>
+                    </form>
+                </section>
+
+                <div class="admin-box">
+                    <input class="admin-form__input admin-box__filter" type="search" id="product-filter" placeholder="Filter by name or category" aria-label="Filter products">
+                    <div class="table-wrap" id="product-table"></div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" hidden></div>
+
+    <script src="../js/main.js" defer></script>
+    <script src="../js/admin.js" defer></script>
+    <script src="../js/admin-products.js" defer></script>
+</body>
+</html>

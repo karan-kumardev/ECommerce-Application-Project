@@ -33,12 +33,12 @@ async function loadOrders() {
         });
 
         html += `
-        <a class="order-row" href="receipt.html?id=${order.id}">
+        <a class="order-row${order.status === "successful" ? " order-row--success" : ""}" href="receipt.html?id=${order.id}">
             <div class="order-row__main">
                 <p class="order-row__title">Order #${order.orderNumber}</p>
                 <p class="order-row__meta">${date} &middot; ${order.itemCount} item${order.itemCount === 1 ? "" : "s"}</p>
             </div>
-            <span class="order-row__status order-row__status--${order.status}">${order.status}</span>
+            <span class="order-row__status order-row__status--${order.status}">${statusLabel(order.status)}</span>
             <p class="order-row__total">$${order.total.toFixed(2)}</p>
         </a>`;
     });
@@ -173,6 +173,11 @@ addressForm.addEventListener("submit", async event => {
     } finally {
         saveBtn.disabled = false;
     }
+});
+
+// when the user comes back to this tab (the admin may have changed an order), load the orders again
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && currentUser) loadOrders();
 });
 
 async function start() {

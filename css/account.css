@@ -165,6 +165,17 @@
     background: var(--color-primary-soft);
 }
 
+/* an order the shop has marked as successful */
+.order-row--success {
+    border-color: #86efac;
+    background: #f0fdf4;
+}
+
+.order-row--success:hover {
+    border-color: #16a34a;
+    background: #dcfce7;
+}
+
 .order-row__title {
     font-weight: 700;
     color: var(--color-ink);
@@ -186,9 +197,9 @@
     background: #fef3c7;
 }
 
-.order-row__status--confirmed {
-    color: #15803d;
-    background: #dcfce7;
+.order-row__status--successful {
+    color: #ffffff;
+    background: #16a34a;
 }
 
 .order-row__status--cancelled {

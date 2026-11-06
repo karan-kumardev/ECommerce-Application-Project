@@ -69,7 +69,7 @@
 --     user_id      INT NOT NULL,
 --     address_id   INT NOT NULL,
 --     total_amount DECIMAL(10,2) NOT NULL,
---     status       ENUM('pending','confirmed','cancelled') NOT NULL DEFAULT 'pending',
+--     status       ENUM('pending','successful','cancelled') NOT NULL DEFAULT 'pending',
 --     created_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 --     FOREIGN KEY (user_id) REFERENCES users(id),
 --     FOREIGN KEY (address_id) REFERENCES addresses(id)
@@ -86,12 +86,7 @@
 --     FOREIGN KEY (product_id) REFERENCES products(id)
 -- ) ENGINE=InnoDB;
 
-use shop_db;
-select * from orders where address_id=2;
-
- SELECT * FROM users where name like 'Aman'; 
+use shopdb;
  
- SELECT * FROM order_items; 
- SELECT id, name, stock FROM products WHERE id IN (1,2);
- 
+ SELECT id, status FROM orders;
  
