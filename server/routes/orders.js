@@ -2,7 +2,7 @@
 const express = require("express");
 const pool = require("../db");
 const { requireAuth } = require("../middleware/auth");
-const { HttpError, wrap, readAddress } = require("../utils");
+const { HttpError, wrap, toNumber, readAddress } = require("../utils");
 
 const router = express.Router();
 
@@ -18,8 +18,8 @@ router.post("/", requireAuth, wrap(async (req, res) => {
 
     const wanted = new Map();                       // product id -> quantity
     for (const item of items) {
-        const id = Number(item && item.id);
-        const qty = Number(item && item.qty);
+        const id = toNumber(item && item.id);
+        const qty = toNumber(item && item.qty);
         if (!Number.isInteger(id) || id < 1 || !Number.isInteger(qty) || qty < 1) {
             throw new HttpError(400, "Invalid item in your cart");
         }
@@ -29,7 +29,11 @@ router.post("/", requireAuth, wrap(async (req, res) => {
         if (qty > 20) throw new HttpError(400, "You can order at most 20 of one product");
     }
 
-    const newAddress = addressId ? null : readAddress(address);
+    const chosenAddressId = addressId === undefined || addressId === null || addressId === "" ? null : toNumber(addressId);
+    if (chosenAddressId !== null && (!Number.isInteger(chosenAddressId) || chosenAddressId < 1)) {
+        throw new HttpError(400, "That address was not found");
+    }
+    const newAddress = chosenAddressId ? null : readAddress(address);
 
     // ----- everything below happens in ONE transaction: all of it succeeds, or none of it -----
     const conn = await pool.getConnection();
@@ -61,10 +65,10 @@ router.post("/", requireAuth, wrap(async (req, res) => {
 
         // the address: an existing one of this user, or a new one
         let useAddressId;
-        if (addressId) {
+        if (chosenAddressId) {
             const [rows] = await conn.query(
                 "SELECT id FROM addresses WHERE id = ? AND user_id = ?",
-                [Number(addressId), req.user.id]
+                [chosenAddressId, req.user.id]
             );
             if (rows.length === 0) throw new HttpError(400, "That address was not found");
             useAddressId = rows[0].id;

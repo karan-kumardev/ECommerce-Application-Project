@@ -3,7 +3,7 @@ const express = require("express");
 const pool = require("../db");
 const { listProducts, getProduct } = require("../queries");
 const { requireAuth, readUser } = require("../middleware/auth");
-const { HttpError, wrap, text } = require("../utils");
+const { HttpError, wrap, toNumber, text } = require("../utils");
 
 const router = express.Router();
 
@@ -29,7 +29,7 @@ router.post("/:id/reviews", requireAuth, wrap(async (req, res) => {
     const productId = Number(req.params.id);
     if (!Number.isInteger(productId) || productId < 1) throw new HttpError(404, "Product not found");
 
-    const rating = Number(req.body.rating);
+    const rating = toNumber(req.body.rating);
     if (!Number.isInteger(rating) || rating < 1 || rating > 5) throw new HttpError(400, "Rating must be from 1 to 5");
     const comment = text(req.body.comment, 3, 1000, "Review");
 

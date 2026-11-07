@@ -33,6 +33,27 @@ function userSuffix() {
 function cartKey() { return "cart" + userSuffix(); }
 function wishlistKey() { return "wishlist" + userSuffix(); }
 
+// reads a list from localStorage; if the stored text is missing, broken or not a list, returns []
+// (someone editing localStorage by hand must not be able to crash the pages)
+function readStoredList(key) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(value) ? value : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function readStoredCart(key) {
+    return readStoredList(key).filter(item =>
+        item && Number.isInteger(item.id) && Number.isInteger(item.qty) && item.qty > 0
+    );
+}
+
+function readStoredWishlist(key) {
+    return readStoredList(key).filter(productId => Number.isInteger(productId));
+}
+
 // called when the logged-in user changes (login, logout, signup).
 // id = the new user's id, or null for a guest.
 function switchUser(id) {
@@ -43,8 +64,8 @@ function switchUser(id) {
     id = String(id);
 
     // whatever the guest put in the cart / wishlist is moved into this user's lists
-    const guestCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const userCart = JSON.parse(localStorage.getItem("cart_" + id) || "[]");
+    const guestCart = readStoredCart("cart");
+    const userCart = readStoredCart("cart_" + id);
     guestCart.forEach(item => {
         const same = userCart.find(entry => entry.id === item.id);
         if (same) same.qty += item.qty;
@@ -52,8 +73,8 @@ function switchUser(id) {
     });
     localStorage.setItem("cart_" + id, JSON.stringify(userCart));
 
-    const guestWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    const userWishlist = JSON.parse(localStorage.getItem("wishlist_" + id) || "[]");
+    const guestWishlist = readStoredWishlist("wishlist");
+    const userWishlist = readStoredWishlist("wishlist_" + id);
     guestWishlist.forEach(productId => {
         if (!userWishlist.includes(productId)) userWishlist.push(productId);
     });
@@ -65,11 +86,7 @@ function switchUser(id) {
 }
 
 function getCart() {
-    const text = localStorage.getItem(cartKey());
-    if (text === null) {
-        return [];
-    }
-    return JSON.parse(text);
+    return readStoredCart(cartKey());
 }
 
 function saveCart(cart) {
@@ -134,11 +151,7 @@ function makeStars(rating) {
 // ----- wishlist (list of product ids, saved in localStorage) -----
 
 function getWishlist() {
-    const text = localStorage.getItem(wishlistKey());
-    if (text === null) {
-        return [];
-    }
-    return JSON.parse(text);
+    return readStoredWishlist(wishlistKey());
 }
 
 function isInWishlist(productId) {

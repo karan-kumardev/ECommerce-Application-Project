@@ -15,7 +15,7 @@ function publicUser(row) {
 router.post("/signup", wrap(async (req, res) => {
     const name = text(req.body.name, 2, 100, "Name");
 
-    const email = String(req.body.email || "").trim().toLowerCase();
+    const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
     if (!isEmail(email)) throw new HttpError(400, "Enter a valid email address");
 
     const password = req.body.password;
@@ -44,7 +44,7 @@ router.post("/signup", wrap(async (req, res) => {
 
 // POST /api/auth/login  { email, password }
 router.post("/login", wrap(async (req, res) => {
-    const email = String(req.body.email || "").trim().toLowerCase();
+    const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
     const password = req.body.password;
 
     if (!email || typeof password !== "string" || password === "") {
