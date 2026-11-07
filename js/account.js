@@ -93,7 +93,8 @@ function validateAddress() {
 
     const problems = [
         name === "" ? "Please enter your full name"
-            : name.length < 2 ? "Name is too short" : "",
+            : name.length < 2 ? "Name is too short"
+            : name.length > 100 ? "Name is too long (100 characters max)" : "",
 
         phone === "" ? "Please enter your phone number"
             : !/^[0-9+\-\s()]+$/.test(phone) ? "Phone can only contain digits, spaces, + - ( )"
@@ -101,12 +102,15 @@ function validateAddress() {
             : phone.length > 20 ? "Phone number is too long" : "",
 
         line === "" ? "Please enter your address"
-            : line.length < 5 ? "Please enter a complete address" : "",
+            : line.length < 5 ? "Please enter a complete address"
+            : line.length > 255 ? "Address is too long (255 characters max)" : "",
 
         city === "" ? "Please enter your city"
-            : city.length < 2 ? "City name is too short" : "",
+            : city.length < 2 ? "City name is too short"
+            : city.length > 100 ? "City name is too long" : "",
 
-        postal !== "" && (postal.length < 3 || postal.length > 12) ? "Postal code must be 3 to 12 characters" : ""
+        postal !== "" && (postal.length < 3 || postal.length > 12) ? "Postal code must be 3 to 12 characters"
+            : postal !== "" && !/^[A-Za-z0-9][A-Za-z0-9 \-]*$/.test(postal) ? "Postal code can only have letters, digits, spaces and -" : ""
     ];
 
     let firstBad = null;

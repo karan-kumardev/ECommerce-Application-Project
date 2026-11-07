@@ -10,6 +10,14 @@ class HttpError extends Error {
 // lets async route functions throw errors that reach the error handler
 const wrap = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
+// Strict number reader: only a real number or a plain numeric string like "12" or "12.50".
+// Blank text, null, [], true, "0x10", "1e2" all become NaN (plain Number() would turn them into 0, 1 or 100).
+function toNumber(value) {
+    if (typeof value === "number") return value;
+    if (typeof value === "string" && /^\s*-?\d+(\.\d+)?\s*$/.test(value)) return Number(value);
+    return NaN;
+}
+
 function isEmail(value) {
     return typeof value === "string" && value.length <= 255 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
@@ -36,6 +44,7 @@ function readAddress(a) {
     let postalCode = null;
     if (a.postalCode !== undefined && a.postalCode !== null && String(a.postalCode).trim() !== "") {
         postalCode = text(String(a.postalCode), 3, 12, "Postal code");
+        if (!/^[A-Za-z0-9][A-Za-z0-9 \-]*$/.test(postalCode)) throw new HttpError(400, "Postal code can only contain letters, digits, spaces and -");
     }
 
     return { fullName, phone, addressLine, city, postalCode };
@@ -54,10 +63,10 @@ function readProduct(b) {
         throw new HttpError(400, "Category must be one of: " + CATEGORIES.join(", "));
     }
 
-    const price = Number(b.price);
+    const price = toNumber(b.price);
     if (!Number.isFinite(price) || price < 0 || price > 1000000) throw new HttpError(400, "Price must be a number from 0 to 1,000,000");
 
-    const stock = Number(b.stock);
+    const stock = toNumber(b.stock);
     if (!Number.isInteger(stock) || stock < 0 || stock > 1000000) throw new HttpError(400, "Stock must be a whole number from 0 to 1,000,000");
 
     const image = typeof b.image === "string" && b.image.trim() !== ""
@@ -67,4 +76,4 @@ function readProduct(b) {
     return { name, description, category, price: Math.round(price * 100) / 100, stock, image };
 }
 
-module.exports = { HttpError, wrap, isEmail, text, readAddress, readProduct, CATEGORIES };
+module.exports = { HttpError, wrap, toNumber, isEmail, text, readAddress, readProduct, CATEGORIES };
